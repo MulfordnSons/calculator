@@ -1,0 +1,26 @@
+body {
+    display: flex;
+    flex-direction: column;
+    height: 95vh;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.container {
+    display: flex;
+    border-style: solid;
+}
+
+.calculator {
+    height: 600px;
+    width: 500px;
+}
+
+.display {
+    display: flex;
+    justify-content: flex-end;
+    align-items: end;
+    height: 15%;
+    font-size: 25px;
+}
