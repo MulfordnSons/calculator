@@ -2,7 +2,7 @@ body {
     display: flex;
     flex-direction: column;
     height: 95vh;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     background-color: #ffffe6;
 
@@ -14,7 +14,7 @@ body {
     display: flex;
     flex-direction: column;
     border-style: solid;
-    text-align:center;    
+    text-align: center;    
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 14px;
 	color: #ffffff;
@@ -58,7 +58,8 @@ body {
     justify-content: flex-end;
     align-items: end;
     height: 15%;
-    font-size: 25px;
+    font-size: 50px;
+    font-weight: 900;
     border-style: double;
     border-top-width: 0px;
     border-right-width: 0px;
@@ -131,6 +132,24 @@ button:hover {
     box-shadow: 0 0 0 1px #163772 inset,0 0 0 2px rgba(255, 255, 255, 0.15) inset,0 5px 0 0      #333797,0 5px 0 1px rgba(0, 0, 0, 0.4),0 5px 8px 1px rgba(0, 0, 0, 0.5);
     }
 
-button.special-btn {
+button.special-btn,
+button.clear {
     background-color: #474EDD;
+}
+
+a {
+    text-decoration: none;
+    color: #1a1a1a;
+
+}
+
+.footer-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+	font-size: 25px;
+    color: #1a1a1a;
+    
 }
