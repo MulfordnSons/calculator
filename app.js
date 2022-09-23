@@ -20,86 +20,55 @@ operate = function (operator, lastResult, number) {
     switch (operator) {
         case '+':
             return addition(lastResult, number);
-        
+
         case '-':
             return subtraction(lastResult, number);
-        
+
         case '*':
             return multiplication(lastResult, number);
-        
+
         case '/':
-            return divide(lastResult, number);      
+            return divide(lastResult, number);
     };
 };
 
+let firstNumber = ''
+let secondNumber = ''
+let firstOperator = null
+let secondOperator = null
+let lastResult = null
+
+
 // end of basic functions //
 
-console.log(operate('+', 10, 10))
-console.log(operate('-', 10, 10))
-console.log(operate('*', 10, 10))
-console.log(operate('/', 10, 10))
 
-// construct empty object to store current equation from user input //
-let equationValues = {
-    calculations: 0,
-    lastResult: [],
-    operator: [],
-    number: [],
-    number2: [] // tee-hee
-
-}
-
-const display = document.getElementById('display')
-
-
-function calculate() {
-    console.log(this)
-    if (equationValues.calculations == 0) {
-        result = operate(equationValues.operator, equationValues.number, equationValues.number2)
-        equationValues.calculations += 1
-    } else {
-        equationValues.lastResult
-        result = operate(equationValues.operator, equationValues.lastResult, equationValues.number2)
-    }
-}
-
-function compileInputs() {
-    if (!Array.isArray(equationValues.operator) || !equationValues.operator.length) {
-        equationValues.number.push(this.textContent)
-        // equationValues.lastResult = input.textContent
-        console.log(equationValues.number.join(''))
-        // update result display with user input //
-        display.textContent = equationValues.number.join('')
-    } else {
-        equationValues.number2.push(this.textContent)
-        display.textContent = equationValues.number2.join('')
-        console.log(equationValues.number2)
-    }
-}
-
-// capture all numbers entered before operator is chosen //
+let display = document.getElementById('display').textContent = '0'
 
 
 
 // listen for button inputs (ONLY number inputs) //
 const inputs = document.querySelectorAll('.numbers-container .normal-btn')
 inputs.forEach(function(input) {
-    input.addEventListener('click', compileInputs)
+    input.addEventListener('click', () => {
+        if (firstOperator == null) {
+            firstNumber += input.textContent
+            console.log(firstNumber)
+            document.getElementById('display').textContent += input.textContent
+        } else {
+            secondNumber += input.textContent
+            console.log(secondNumber)
+            document.getElementById('display').textContent = secondNumber
+        }
+        
+    })
 })
-    // check if operator property of equation values is empty, if empty it means that user is still 
-    //  entering number for first side of calculation
-    
 
 // listen for button inputs of operators //
 const operators = document.querySelectorAll('.numbers-container .special-btn')
 operators.forEach(operator => operator.addEventListener('click', () => {
-    if (!Array.isArray(equationValues.number) || !equationValues.number.length) {
-        console.log('enter number before assigning operator')
-    } else {
-        equationValues.operator.push(operator.textContent)
-        console.log(equationValues.operator)
-    }}))
-    
+    firstOperator = operator.textContent
+}))
+
 
 
 // listen for button input of AC and clear contents of calculation //
@@ -125,7 +94,7 @@ const clear = document.querySelector('.clear').addEventListener('click', clickEv
 
 // running count of calculations made:
 //  if count > 1: means equals have been pressed to signify first equation.
-//   at this point, the user can choose any operator and it will calculate the number inputted, with 
+//   at this point, the user can choose any operator and it will calculate the number inputted, with
 //    the the selected operator AND THE RESULT OF THE LAST CALCULATION.
 
 
