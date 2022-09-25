@@ -13,7 +13,12 @@ multiplication = function(lastResult, number) {
 };
 
 divide = function(lastResult, number) {
-    return lastResult / number;
+    if (lastResult || number == 0) {
+        clearCalculations()
+        return 'LOL'
+    } else {
+        return lastResult / number;
+    }
 };
 
 operate = function (operator, lastResult, number) {
@@ -42,6 +47,18 @@ let vars = {
     action: ''
 };
 
+function testForDecimal(array) {
+
+    if (array.includes('.')) {
+        console.log('array includes decimal')
+        document.getElementById('decimal').setAttribute("disabled", "disabled");
+    } else {
+        console.log('array does not include decimal')
+        document.getElementById('decimal').removeAttribute("disabled");
+    }
+
+}
+
 function clearCalculations() {
     // clears all array values in vars
     Object.keys(vars).forEach(key => vars[key] = []);
@@ -65,16 +82,20 @@ function calculate(input) {
     // logic to perform a calculation when a user presses an operator or equals
     console.log(input)
     if (operators.includes(input)) {
-        result = operate(vars.operators[vars.operators.length -1], parseInt(vars.firstNumber.join('')), parseInt(vars.secondNumber.join('')))
+        result = operate(vars.operators[vars.operators.length -1], parseFloat(vars.firstNumber.join('')), parseFloat(vars.secondNumber.join('')))
         refreshFirstNumberArray(vars)
         updateDisplay(result)
         vars.operators.push(input)
     } else if (input == '=') {
         if (vars.firstNumber.length > 0 && vars.secondNumber.length == 0 && vars.operators.length > 0) {
-            result = operate(vars.operators[vars.operators.length -1], parseInt(vars.firstNumber.join('')), parseInt(vars.firstNumber.join('')))
+            result = operate(vars.operators[vars.operators.length -1], parseFloat(vars.firstNumber.join('')), parseFloat(vars.firstNumber.join('')))
             refreshFirstNumberArray(vars)
             updateDisplay(result)
-        } 
+        } else if (vars.firstNumber.length > 0 && vars.secondNumber. length > 0) {
+            result = operate(vars.operators[vars.operators.length -1], parseFloat(vars.firstNumber.join('')), parseFloat(vars.secondNumber.join('')))
+            refreshFirstNumberArray(vars)
+            updateDisplay(result)
+        }
     };
 };
 
@@ -84,9 +105,11 @@ function calculatorLogic(input) {
 
         if (vars.operators.length == 0) {
             vars.firstNumber.push(input)
+            testForDecimal(vars.firstNumber)
             updateDisplay(vars.firstNumber.join(''))
         } else {
             vars.secondNumber.push(input)
+            testForDecimal(vars.secondNumber)
             updateDisplay(vars.secondNumber.join(''))
         }
 
@@ -126,7 +149,11 @@ listenClick.forEach(function(input){
 )});
 
 document.onkeydown = (event) =>  {
-    keyPress = event.key
+    let keyPress = event.key
+    if (event.key == 'Enter') {
+        keyPress = '='
+        // calculatorLogic(keyPress)
+    }
     calculatorLogic(keyPress)
 }
 
